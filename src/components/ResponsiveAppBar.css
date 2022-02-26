@@ -1,0 +1,11 @@
+#font-itim {
+  font-family: "Itim", cursive;
+}
+
+#color-app-bar {
+  background-color: #950101;
+}
+
+.app-bar {
+  height: 10vh;
+}

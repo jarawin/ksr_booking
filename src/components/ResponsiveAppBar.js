@@ -11,31 +11,48 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import car from '../images/car-white.svg';
+// import car from '../images/logo.png';
+import "./ResponsiveAppBar.css"
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ['หน้าแรก', 'Pricing', 'Blog'];
+const settings = ['ข้อมูลส่วนตัว', 'ประวัติการจอง', 'ออกจากระบบ'];
 
 const ResponsiveAppBar = (props) => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
+    const [page, setPage] = React.useState("");
+    const [setting, setSetting] = React.useState("");
+
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
+        // console.log(event);
     };
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
+        // console.log(event);
     };
 
-    const handleCloseNavMenu = () => {
+    const handleCloseNavMenu = (e) => {
         setAnchorElNav(null);
+        setPage(e.currentTarget.innerText);
+        if (pages.includes(e.currentTarget.innerText)) { props.setPage(e.currentTarget.innerText) }
     };
 
-    const handleCloseUserMenu = () => {
+    const handleCloseUserMenu = (e) => {
         setAnchorElUser(null);
+        setSetting(e.currentTarget.innerText);
+        if (settings.includes(e.currentTarget.innerText)) { props.setPage(e.currentTarget.innerText) }
     };
+
+    React.useEffect(() => {
+        console.log(anchorElNav);
+        console.log(anchorElUser);
+    }, [])
 
     return (
-        <AppBar position="static">
+        <AppBar position="static" id='color-app-bar' className='app-bar'>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography
@@ -44,7 +61,8 @@ const ResponsiveAppBar = (props) => {
                         component="div"
                         sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
                     >
-                        <img src=''></img>
+                        <img src={car} width="40px" />
+                        เคเอสอาร์
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -89,7 +107,8 @@ const ResponsiveAppBar = (props) => {
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
                     >
-                        LOGO
+                        <img src={car} width="40px" />
+                        เคเอสอาร์
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
@@ -127,7 +146,7 @@ const ResponsiveAppBar = (props) => {
                         >
                             {settings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
+                                    <Typography textAlign="center" onClick={handleCloseUserMenu}>{setting}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
